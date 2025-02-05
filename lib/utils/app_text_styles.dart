@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class AppTextStyles {
   static const TextStyle largeText = TextStyle(
-    fontSize: 24.0,
+    fontSize: 16.0,
     fontWeight: FontWeight.bold,
     color: Colors.black,
   );

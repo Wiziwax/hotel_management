@@ -1,8 +1,9 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hotel_management/occupancy_view.dart';
+import 'package:hotel_management/screens/checkin_page.dart';
+import 'package:hotel_management/screens/checkout_page.dart';
 import 'package:hotel_management/utils/app_colors.dart';
-
 
 class RoomManager extends StatelessWidget {
   final List<ServiceItem> services = [
@@ -27,7 +28,9 @@ class RoomManager extends StatelessWidget {
         // backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back,),
+          icon: Icon(
+            Icons.arrow_back,
+          ),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
@@ -39,7 +42,6 @@ class RoomManager extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-
             CloudStorageStats(),
             Expanded(
               child: GridView.builder(
@@ -101,25 +103,25 @@ class ServiceCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(
-                service.icon,
-                // color: AppColors.primaryBlue,
+                service.icon, // color: AppColors.primaryBlue,
                 size: 24,
               ),
             ),
             SizedBox(width: 8),
-      Flexible(  // This prevents overflow
-        child: Text(
-          service.title,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-          ),
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-        ),
-      ),],
-
+            Flexible(
+              // This prevents overflow
+              child: Text(
+                service.title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -132,7 +134,6 @@ class ServiceItem {
 
   ServiceItem({required this.icon, required this.title});
 }
-
 
 class CloudStorageStats extends StatelessWidget {
   @override
@@ -150,7 +151,8 @@ class CloudStorageStats extends StatelessWidget {
                 height: 100,
                 child: CustomPaint(
                   painter: CircularProgressPainter(
-                    percentage: 0.7, // 80%
+                    percentage: 0.7,
+                    // 80%
                     progressColor: AppColors.primaryBlue,
                     backgroundColor: Colors.blue.withOpacity(0.2),
                   ),
@@ -168,43 +170,42 @@ class CloudStorageStats extends StatelessWidget {
               SizedBox(width: 16),
 
               // Storage Details
-      InkWell(
-        onTap: () {
-          // Navigate to another page
-          Navigator.pushNamed(
-            context, '/occupancy'
-             // Replace with your target page
-          );
-        },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Room Occupancy',
-              style: TextStyle(
-                color: Colors.grey[600],
-                fontSize: 14,
+              InkWell(
+                onTap: () {
+                  // Navigate to another page
+                  Navigator.pushNamed(context, '/occupancy'
+                      // Replace with your target page
+                      );
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Room Occupancy',
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 14,
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      '80 of 100 rooms occupied',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      'View Details',
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: 4),
-            Text(
-              '80 of 100 rooms occupied',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-            ),
-            SizedBox(height: 4),
-            Text(
-              'View Details',
-              style: TextStyle(
-                color: Colors.blue,
-                fontSize: 14,
-              ),
-            ),
-          ],
-        ),
-      ),
             ],
           ),
           SizedBox(height: 24),
@@ -213,18 +214,38 @@ class CloudStorageStats extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: _ActionButton(
-                  icon: Icons.login,
-                  label: 'Check In',
-                  color: AppColors.primaryColor,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              CheckinPage()), // Replace with your page
+                    );
+                  },
+                  child: _ActionButton(
+                    icon: Icons.login,
+                    label: 'Check In',
+                    color: AppColors.primaryColor,
+                  ),
                 ),
               ),
               SizedBox(width: 16),
               Expanded(
-                child: _ActionButton(
-                  icon: Icons.logout,
-                  label: 'Check Out',
-                  color: AppColors.myBlue,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              CheckoutPage()), // Replace with your page
+                    );
+                  },
+                  child: _ActionButton(
+                    icon: Icons.logout,
+                    label: 'Check Out',
+                    color: AppColors.myBlue,
+                  ),
                 ),
               ),
             ],
@@ -269,11 +290,10 @@ class CircularProgressPainter extends CustomPainter {
       ..strokeCap = StrokeCap.round;
 
     canvas.drawArc(
-      Rect.fromCircle(center: center, radius: radius),
-      -pi / 2, // Start from top
+      Rect.fromCircle(center: center, radius: radius), -pi / 2,
+      // Start from top
       2 * pi * percentage, // Draw based on percentage
-      false,
-      progressPaint,
+      false, progressPaint,
     );
   }
 

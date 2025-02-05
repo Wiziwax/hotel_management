@@ -26,7 +26,7 @@ class AppButtonStyles {
       vertical: AppDimensions.paddingSmall,
       horizontal: AppDimensions.paddingMedium,
     ),
-    textStyle: AppTextStyles.mediumText.copyWith(color: AppColors.primaryColor),
+    textStyle: AppTextStyles.mediumText.copyWith(color: AppColors.textDark),
   );
 
   // Usage
